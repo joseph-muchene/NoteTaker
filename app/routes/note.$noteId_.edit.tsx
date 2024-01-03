@@ -2,6 +2,13 @@ import { ActionFunctionArgs, LoaderFunctionArgs, redirect } from "@remix-run/nod
 import { Form, useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { db } from "lib/db";
+import { Note } from "@prisma/client";
+
+
+
+
+
+
 
 
 
@@ -32,11 +39,11 @@ export default function EditNote() {
 
 
             <h1 className="ml-4">
-                {note.completed && <s>{note.note}</s>}
-                {!note.completed && <p>{note.note}</p>}
+                {note?.completed && <s>{note?.note}</s>}
+                {!note?.completed && <p>{note?.note}</p>}
             </h1>
             <Form method="post" className="flex flex-col">
-                <button disabled={note.completed} className={`mt-2 rounded-md ${note.completed ? "bg-gray-200" : "bg-green-400"} px-6 py-2 mx-3 `} type="submit">{note.completed ? "completed" : "complete"}</button>
+                <button disabled={note?.completed} className={`mt-2 rounded-md ${note?.completed ? "bg-gray-200" : "bg-green-400"} px-6 py-2 mx-3 `} type="submit">{note?.completed ? "completed" : "complete"}</button>
             </Form>
         </div>
     )

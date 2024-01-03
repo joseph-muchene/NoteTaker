@@ -13,17 +13,19 @@ import {
 
 
 
-
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "stylesheet", href: stylesheet },
 ];
 
 import stylesheet from "~/tailwind.css";
+import Navigation from "./components/Navigation";
 
 
 
 export default function App() {
+
+
   return (
     <html lang="en">
       <head>
@@ -33,23 +35,7 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-orange-400">
-        <nav className="mx-auto   items-center  flex mt-4" >
-          <ul className="mx-auto rounded-md flex space-x-5 p-3 bg-slate-800 text-white">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/notes">posts</Link>
-            </li>
-            <li>
-              <Link to="/create-form">create</Link>
-            </li>
-
-            <li>
-              <Link to="/">Manage</Link>
-            </li>
-          </ul>
-        </nav>
+        <Navigation />
         <Toaster />
 
         <div style={{
