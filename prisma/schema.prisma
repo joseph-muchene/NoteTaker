@@ -17,11 +17,14 @@ model Note {
   note      String   @db.Text
   createdAt DateTime @default(now())
   startDate String
+  user      User     @relation(fields: [userId], references: [id])
   startTime String
   endTime   String
   endDate   String?
   completed Boolean  @default(false)
   updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model Totp {
@@ -38,4 +41,5 @@ model User {
   email     String    @unique
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
+  Note      Note[]
 }

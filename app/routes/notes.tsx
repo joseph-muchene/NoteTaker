@@ -3,6 +3,7 @@ import { Form, Link, useLoaderData } from "@remix-run/react"
 import { db } from "lib/db"
 
 import { ArrowRightCircle } from 'lucide-react'
+import { authenticator } from "~/modules/auth/auth.server"
 
 interface NoteType {
     id: string
@@ -19,12 +20,25 @@ export async function loader({
     request
 }: LoaderFunctionArgs) {
     // request data
+    const session = await authenticator.isAuthenticated(request, {
+        failureRedirect: '/login',
+    })
 
-    const notes = await db.note.findMany()
+    const user = await db.user.findUnique({ where: { id: session.id } })
+    try {
+        const notes = await db.note.findMany({
+            where: {
+                userId: user?.id
+            }
+        })
 
-    return json(
-        notes
-    )
+    
+        return json(
+            notes
+        )
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 

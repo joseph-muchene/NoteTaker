@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { ActionFunctionArgs, LoaderFunctionArgs, json, redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import { db } from "lib/db";
@@ -5,24 +6,13 @@ import { authenticator } from "~/modules/auth/auth.server";
 
 
 
-export async function loader({ request }: LoaderFunctionArgs) {
-    const session = await authenticator.isAuthenticated(request, {
-        failureRedirect: '/login',
-    })
-
-    const user = await db.user.findUnique({ where: { id: session.id } })
-    if (!user) return redirect('/login')
-
-    return json({ user } as const)
-}
-
 
 export default function CreatePost() {
 
-    const { user } = useLoaderData<typeof loader>()
 
 
-    
+
+
     return (
         <div>
 
@@ -52,12 +42,17 @@ export async function action({ request }: ActionFunctionArgs) {
 
 
     const formData = await request.formData()
+    const session = await authenticator.isAuthenticated(request, {
+        failureRedirect: '/login',
+    })
 
+    
+    const user = await db.user.findUnique({ where: { id: session.id } }) 
     try {
         await db.note.create({
             data: {
                 note: formData.get("note") as string,
-                userId: "default",
+                userId: user!!.id,
                 startTime: formData.get("startTime") as string,
                 endTime: formData.get("endTime") as string,
                 startDate: formData.get("startDate") as string,
@@ -65,7 +60,7 @@ export async function action({ request }: ActionFunctionArgs) {
             }
         })
 
-        redirect("/posts")
+        return redirect("/notes")
 
     } catch (error) {
         console.log("Error submitting note ", error)
