@@ -32,7 +32,7 @@ export async function loader({
             }
         })
 
-    
+
         return json(
             notes
         )
@@ -55,7 +55,7 @@ export default function Notes() {
             {/* existing elements */}
             <body>
                 <div>
-                    {notes.length > 0 && notes.map((data: NoteType) => (
+                    {notes.length > 0 && notes.map((data) => (
                         <div key={data.id} >
                             <p className="p-2  ">
                                 {data.completed ? (<s> {data.note}</s>) : (<p>{data.note}</p>)}
@@ -68,6 +68,17 @@ export default function Notes() {
                             <hr className="border-1 border-gray-500 py-2" />
                         </div>
                     ))}
+
+                    {notes.length < 1 && (
+                        <>
+                            <h1 className="text-center">
+                                You dont have any notes
+                            </h1>
+                            <p className="text-center underline">
+                                <Link className="text-center my-5 text-blue-600" to="/create-form">Create {">>"}</Link>
+                            </p>
+                        </>
+                    )}
                 </div>
             </body>
         </html >

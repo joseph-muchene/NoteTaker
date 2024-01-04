@@ -6,12 +6,22 @@ import { authenticator } from "~/modules/auth/auth.server";
 
 
 
+export async function loader({ request }: LoaderFunctionArgs) {
+    const session = await authenticator.isAuthenticated(request, {
+        failureRedirect: '/login',
+    })
+
+    const user = await db.user.findUnique({ where: { id: session.id } })
+    if (!user) return redirect('/login')
+
+    return json({ user } as const)
+}
 
 export default function CreatePost() {
 
 
 
-
+    const user = useLoaderData<typeof loader>()
 
     return (
         <div>
@@ -46,8 +56,8 @@ export async function action({ request }: ActionFunctionArgs) {
         failureRedirect: '/login',
     })
 
-    
-    const user = await db.user.findUnique({ where: { id: session.id } }) 
+
+    const user = await db.user.findUnique({ where: { id: session.id } })
     try {
         await db.note.create({
             data: {
