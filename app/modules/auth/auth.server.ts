@@ -15,7 +15,7 @@ export let authenticator = new Authenticator<User>(authSessionStorage, {
 authenticator.use(
     new TOTPStrategy(
         {
-            secret: process.env.ENCRYPTION_SECRET,
+            secret: process.env.ENCRYPTION_SECRET as string,
             magicLinkGeneration: { callbackPath: '/magic-link' },
 
             createTOTP: async (data, expiresAt) => {
@@ -42,7 +42,7 @@ authenticator.use(
         },
         async ({ email }) => {
 
-            
+
             let user = await db.user.findUnique({ where: { email } })
 
             if (!user) {

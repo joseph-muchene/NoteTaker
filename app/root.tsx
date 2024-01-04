@@ -33,8 +33,10 @@ export default function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+
+    
       </head>
-      <body className="bg-orange-400">
+      <body style={{ background: "#355c7d"}}>
         <Navigation />
         <Toaster />
 
@@ -44,7 +46,7 @@ export default function App() {
         }}>
 
 
-          <div className=" rounded-md mx-auto bg-[#f4f4f4] mt-2 p-3 ">
+          <div className=" rounded-md mx-auto w-[550px] bg-[#f4f4f4] mt-2 p-3 ">
             <Outlet />
           </div>
           {/* <Note /> */}

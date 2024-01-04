@@ -13,10 +13,10 @@ export default function Navigation() {
                         <NavLink to="/">Home</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/notes">posts</NavLink>
+                        <NavLink to="/notes">Notes</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/create-form">create</NavLink>
+                        <NavLink to="/create-form">Create</NavLink>
                     </li>
 
                     <li>

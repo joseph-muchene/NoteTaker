@@ -43,7 +43,7 @@ export async function action({ request }: DataFunctionArgs) {
 export default function AdminIndex() {
     const { user } = useLoaderData<typeof loader>()
 
-    
+
 
     return (
         <div >
@@ -64,25 +64,35 @@ export default function AdminIndex() {
                             My account
                         </h1>
 
-                     
-                        <p className='my-2 '>
-                            {user.email}
+
+                        <p className='my-4 text-center border mx-auto p-3  border-[#bc4e9c]'>
+                            Email:    {user.email}
                         </p>
                     </div>
                 </div>
 
                 {/* Account Actions */}
                 <div >
-                    {/* Delete Account */}
 
 
                     {/* Log out */}
                     <Form method="POST" action="/logout" autoComplete="off">
                         <button
                             type="submit"
-                            className="clickable flex h-10 w-full items-center justify-center rounded-md bg-gray-200 font-semibold text-black">
+                            className="clickable my-4 flex h-10 w-full items-center justify-center rounded-md bg-gray-200 font-semibold text-black">
                             Log out
                         </button>
+                    </Form>
+                    {/* Delete Account */}
+
+                    <Form method="post" onClick={e => {
+                        const response = window.confirm("Are you sure you want to delete your account")
+
+                        if (!response) {
+                            e.preventDefault()
+                        }
+                    }}>
+                        <button className=" mt-3 clickable flex h-10 w-full items-center justify-center rounded-md bg-red-400 font-semibold text-black" type="submit" >Delete Account</button>
                     </Form>
                 </div>
             </div>

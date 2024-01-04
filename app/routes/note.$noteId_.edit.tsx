@@ -2,24 +2,26 @@ import { ActionFunctionArgs, LoaderFunctionArgs, redirect } from "@remix-run/nod
 import { Form, useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { db } from "lib/db";
-import { Note } from "@prisma/client";
+import { authenticator } from "~/modules/auth/auth.server";
+import { getSession } from "~/modules/auth/session.server";
 
 
-
-
-
-
-
-
-
-export const loader = async ({ params }: LoaderFunctionArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+    await authenticator.isAuthenticated(request, {
+        failureRedirect: '/login',
+    })
+   
     try {
+
+
         const note = await db.note.findUnique({
             where: {
                 id: params.noteId
             },
 
         })
+
+
 
         return json(note)
     } catch (error) {

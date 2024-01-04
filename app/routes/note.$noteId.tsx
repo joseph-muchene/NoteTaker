@@ -2,7 +2,6 @@ import { LoaderFunctionArgs, json, redirect } from "@remix-run/node"
 import { Form, Link, useLoaderData } from "@remix-run/react"
 import { db } from "lib/db"
 import { EditIcon, TrashIcon } from "lucide-react";
-import invariant from "tiny-invariant";
 
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -13,7 +12,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
             id: params.noteId
         }
     })
-    console.log(note)
+
     if (!note) {
         throw new Response("Not Found", { status: 404 });
     }
@@ -66,7 +65,7 @@ export default function Note() {
         userId: string
         note: String
         startDate: String
-        endDate: String
+        endDate: String | null
         endTime: String
         startTime: String
         completed: boolean
@@ -106,7 +105,7 @@ export default function Note() {
             <body>
                 <div>
                     <div >
-                        <p>
+                        <p className="text-center text-xl">
                             {note?.note}
                         </p>
 
@@ -123,7 +122,7 @@ export default function Note() {
 
                         </div>
 
-                        <div className="flex items-center justify-center mt-4">
+                        <div className="flex items-center justify-between mt-4 mx-auto w-40">
                             <Form
                                 action="destroy"
                                 method="post"
@@ -136,11 +135,12 @@ export default function Note() {
 
 
                             >
-                                <button className="rounded-md  px-6 py-2 mx-3 " type="submit"><TrashIcon /></button>
+                                <button className="rounded-md  px-6 py-2 mx-3 hover:animate-pulse" type="submit"><TrashIcon color="red" /></button>
                             </Form>
-                            <span>|</span>
 
-                            <Link to={`/note/${note.id}/edit`}><EditIcon /></Link>
+
+
+                            <Link to={`/note/${note.id}/edit`}><EditIcon color="blue" /></Link>
 
 
                         </div>

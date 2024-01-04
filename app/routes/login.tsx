@@ -53,7 +53,7 @@ export default function Login() {
                 <Form method="POST" className="flex flex-col">
                     <label htmlFor="email">Email</label>
                     <input className="p-3 my-2 rounded" type="email" name="email" placeholder="Insert email .." required />
-                    <button className="mt-2 rounded-md bg-green-400 px-6 py-2 mx-3 " type="submit">Submit</button>
+                    <button className="mt-2 rounded-md bg-green-400 px-6 py-2 mx-3 hover:bg-gray-600 hover:text-white cursor-pointer" type="submit">Submit</button>
                 </Form>
             )}
 
@@ -63,15 +63,15 @@ export default function Login() {
                     {/* Renders the form that verifies the code. */}
                     <Form method="POST" className="flex flex-col">
 
-                        <input className="p-3 my-2 rounded" type="text" name="code" placeholder="Insert code .." required />
+                        <input defaultValue={authEmail ? authEmail : ''} className="p-3 my-2 rounded" type="text" name="code" placeholder="Insert code .." required />
 
-                        <button type="submit">Continue</button>
+                        <button className="mt-2 rounded-md  px-6 py-2 mx-3 hover:bg-gray-600 hover:text-white cursor-pointer" type="submit">Continue</button>
                     </Form>
 
                     {/* Renders the form that requests a new code. */}
                     {/* Email input is not required, it's already stored in Session. */}
                     <Form method="POST">
-                        <button type="submit">Request new Code</button>
+                        <button className="mt-2 rounded-md bg-green-600 px-6 py-2 mx-3 hover:bg-gray-600 hover:text-white cursor-pointer" type="submit">Request new Code</button>
                     </Form>
 
 
