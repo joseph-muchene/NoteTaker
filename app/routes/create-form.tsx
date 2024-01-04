@@ -28,7 +28,7 @@ export default function CreatePost() {
 
 
             <h1 className="ml-4">
-                Start a post
+                Create Note
             </h1>
             <Form action="/create-form" method="post" className="flex flex-col">
                 <textarea className="rounded-md my-2 resize-none  outline-green-400" name="note" id="note" cols={30} rows={3}></textarea>

@@ -1,29 +1,20 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// generator client {
-//   provider = "prisma-client-js"
-// }
-
-// datasource db {
-//   provider     = "postgresql"
-//   url          = env("DATABASE_URL")
-//   relationMode = "prisma"
-// }
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Note {
   id        String   @id @default(uuid())
   userId    String
-  // note      String   @db.Text
-  note      String
+  note      String   @db.Text
   createdAt DateTime @default(now())
   startDate String
   user      User     @relation(fields: [userId], references: [id])
