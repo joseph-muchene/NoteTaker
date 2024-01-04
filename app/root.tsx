@@ -45,7 +45,7 @@ export default function App() {
         }}>
 
 
-          <div className=" rounded-md mx-auto w-[550px] bg-[#f4f4f4] mt-2 p-3 ">
+          <div className="mx-3 rounded-md mx-auto md:w-[550px] bg-[#f4f4f4] mt-2 p-3 ">
             <Outlet />
           </div>
           {/* <Note /> */}
